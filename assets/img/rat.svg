@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78.93 66.44"><defs><style>
+.cls-1{
+    fill: none;
+    stroke: #E4DEC9;
+    stroke-width: 1.2;
+    stroke-miterlimit:100;
+stroke-dasharray: 400;
+stroke-dashoffset:0;
+animation: dash 4s linear infinite;
+}
+
+@keyframes dash{
+    0%{stroke-dashoffset:400;}
+    100%{stroke-dashoffset:0;}
+}
+
+</style>
+
+
+</defs><g id="레이어_2" data-name="레이어 2"><g id="레이어_1-2" data-name="레이어 1"><g id="쥐"><path class="cls-1" d="M74.71,12.48H70.49v-4H62.23V4.22H58V8.44H54v4H49.75V16.7H41.48V12.48H24.79V16.7H20.74v4.22H12.48v4h-4v8.26H4.22v4.22H8.44V45.7H16.7v4.22H49.92V45.7H45.7v-4H29.18V37.44H45.7v4.22h4.22v4H62.4v-4H58.18V33.4H62.4v-4H74.88V25.14h4.05V16.88H74.88v-4.4Zm-8.27,8.26h-4V16.52h4Zm-16.69,0v4H54V29H49.75V24.78h-4V20.74ZM37.44,33.22v-4H25v4h-4v-4h4V25H37.44v4.22h4.22v4Zm12.31-29V0H58V4.22Zm0,8.26h-4V4.22h4.22v8.26Zm-16.53,54V62.23h4.22v4.21ZM29,62.23V58h4v4.22ZM8.26,58V54H29v4Zm-4-4V49.74H8.44V54ZM0,37.26H4.22V49.75H0Z"/></g></g></g></svg>

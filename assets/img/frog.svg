@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69 69"><defs>
+
+<style>.cls-1{
+    
+    fill: none;
+    stroke: #E4DEC9;
+    stroke-width: 1.2;
+    stroke-miterlimit:100;
+stroke-dasharray: 300;
+stroke-dashoffset: 0;
+animation: dash 4s linear infinite;
+}
+
+@keyframes dash{
+    0%{stroke-dashoffset:300;}
+    100%{stroke-dashoffset:0;}
+
+;}</style>
+
+</defs><g id="레이어_2" data-name="레이어 2"><g id="레이어_1-2" data-name="레이어 1"><path id="개구리" class="cls-1" d="M63.69,21.22H58.38V10.61h-5.3V5.3h5.3V0h5.31V5.3H69v5.31H63.69ZM53.08,58.38v5.31h5.3V69h5.31V63.69H69V58.38H63.69v-5.3H58.38v5.3ZM47.77,26.53H58.38V21.22H47.77v-5.3H42.46v5.3H37.14v-5.3h5.32V10.61H26.53v5.31h5.32v5.3H26.53v-5.3H21.22v5.3H10.61v5.31H21.22V42.46h-5.3v5.31H10.61v5.31H26.53v5.3h5.31v5.31h5.3V58.38h5.32v-5.3H58.38V47.77h-5.3V42.46H47.77V26.53ZM5.3,58.38H0v5.31H5.3V69h5.31V63.69h5.31V58.38H10.61v-5.3H5.3Zm5.31-47.77h5.31V5.3H10.61V0H5.3V5.3H0v5.31H5.3V21.22h5.31Z"/></g></g></svg>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+
+    <link href="https://webfontworld.github.io/ssf/BeanPole.css" rel="stylesheet">
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .tetris {
+        height: 100%;
+    }
+
+    .tetris_grid {
+        display: grid;
+        grid: repeat(4, 25vh)/auto-flow 20vw;
+        background: #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .tetris_grid .item {
+        justify-items: stretch;
+        border-right: 1px solid #E4DEC9;
+        border-bottom: 1px solid #E4DEC9;
+        font-family: 'BeanPole';
+        color: #E4DEC9;
+        font-size: 1.7vw;
+        position: relative;
+    }
+
+    .tetris_grid .text {
+        padding: 2vw;
+        font-weight: lighter;
+        line-height: 150%;
+    }
+
+    .tetris_grid .item h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        margin-top: 2vw;
+        font-size: 7vw;
+    }
+
+    .item:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 3;
+        grid-column-end: 6;
+    }
+
+    .item:nth-child(6) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #E4DEC9;
+        color: #000;
+        font-size: 5vw;
+        padding: 1vw;
+        line-height: 1;
+    }
+
+    .item:nth-child(7) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 5;
+    }
+
+    .item:nth-child(8) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 4;
+        grid-column-end: 6;
+        grid-row-start: 2;
+        grid-row-end: 5;
+    }
+
+
+
+
+
+    /**********************************  */
+    ul {
+        list-style: none;
+    }
+
+
+    body {
+        background: #000;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .game-text>button {
+        padding: 0.5rem 1rem;
+        color: #fff;
+        background: #000;
+        border: none;
+        cursor: pointer;
+    }
+
+    .game-text>button:hover {
+        background: #f25c54;
+        color: #000;
+        box-shadow: 0 0 5px #f25c54,
+            0 0 25px #f25c54,
+            0 0 50px #f25c54,
+            0 0 200px #f25c54;
+        -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    }
+
+    a:nth-child(1) {
+        filter: hue-rotate(270deg);
+    }
+
+    a:nth-child(2) {
+        filter: hue-rotate(110deg);
+    }
+
+
+    .score {
+        margin-top: 1.5rem;
+        color: #fff;
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: .7rem;
+    }
+
+    .game-text {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: fixed;
+        width: 31%;
+        height: 73%;
+        background: rgba(0, 0, 0, 0.7);
+        left: 25%;
+        top: 26%;
+        color: #fff;
+        font-size: 50px;
+    }
+
+    .playground>ul {
+        border: 1px solid #333;
+        /* width: 250px; */
+        width: 15vw;
+        margin: 0 auto;
+    }
+
+    .playground>ul>li {
+        width: 100%;
+        /* height: 25px; */
+        height: 1.5vw;
+    }
+
+    .playground>ul>li>ul {
+        display: flex;
+    }
+
+    .playground>ul>li>ul>li {
+        /* width: 25px;
+        height: 25px; */
+        width: 1.5vw;
+        height: 1.5vw;
+        outline: 1px solid #fff;
+    }
+
+    .bar {
+        background: #aed1e6;
+    }
+
+    .tree {
+        background: #faf0ca;
+        /* 정사각형 모양 */
+    }
+
+    .zee {
+        background: #f4d35e;
+    }
+
+    .elLeft {
+        background: #ee964b;
+    }
+
+    .elRight {
+        background: #f95738;
+    }
+
+    .square {
+        background: #b5c99a;
+    }
+
+
+    @media (max-width: 800px) {
+        .tetris_grid .text {
+            font-size: 2.5vw;
+        }
+
+        .score {
+            margin-top: 2.5rem;
+        }
+
+        .playground>ul {
+
+            width: 30vw;
+        }
+
+        .playground>ul>li {
+            height: 3vw;
+        }
+
+        .playground>ul>li>ul>li {
+            width: 3vw;
+            height: 3vw;
+        }
+    }
+
+</style>
+
+<body>
+    <div class="tetris">
+        <div class="tetris_grid">
+            <div class="item">
+                <h2>script</h2>
+            </div>
+            <div class="item">
+            </div>
+            <div class="item text">
+                <span>블록을 쌓으면서 한 줄이 꽉 채워지면 그 줄은 사라지는 게임, 블록이 맨 위까지 안 쌓이게 끝까지 버티면서 플레이하는 테트리스게임입니다.
+                    Html과 순수 JS만으로 제작했으며 HTML과 CSS는 최소한의 코드로만 작성하였습니다. 스크립트는 DOM을 다루는 기본 기능을 사용하였습니다.
+                    키 코드를 읽어서 키보드로 조종하게 만들고 게임에 사용할 블럭을 커스터마이징하여 인터벌을 활용해 게임이 진행 되게 만들었습니다.
+                    추억의 테트리스 게임 시작해볼까요~?!</span>
+            </div>
+            <div class="item"></div>
+            <div class="item">
+            </div>
+            <div class="item">
+                <span>Tetris</span>
+            </div>
+            <div class="item">
+                <div class="wrapper">
+                    <div class="game-text">
+                        <span>Game Over</span>
+                        <button>Restart</button>
+                    </div>
+                    <div class="score">0</div>
+                    <div class="playground">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="item text">
+                <span>When a line is filled while stacking blocks,
+                    the line disappears. It is a Tetris game where you play
+                    while holding on to the end so that the blocks do not
+                    stack up to the top. It was created with only Html and
+                    pure JS, and HTML and CSS were written with minimal
+                    code. The script used the basic functions of manipulating
+                    the DOM. By reading the key code and controlling it with
+                    the keyboard, I customized the blocks to be used in the
+                    game and made the game progress using the interval.
+                    Let's start the memory Tetris game~?!</span>
+            </div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+    <script type="module" src="js/tetris.js"></script>
+    <script src="js/blocks.js"></script>
+</body>
+
+</html>

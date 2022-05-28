@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link href="https://webfontworld.github.io/ssf/BeanPole.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tinos&amp;display=swap" rel="stylesheet">
+    <title>Music Player</title>
+
+    <style>
+        :root {
+            /* --lightblack: #515c6f; */
+            --lightblack: #919398;
+            --white: #ffffff;
+            --darkwhite: #cecaca;
+            --lightbshadow: rgba(0, 0, 0, 0.15);
+        }
+
+
+
+        .music {
+            height: 100%;
+        }
+
+        .music_grid {
+            display: grid;
+            grid: repeat(4, 25vh)/auto-flow 20vw;
+            background: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .music_grid .item {
+            border-right: 1px solid #E4DEC9;
+            border-bottom: 1px solid #E4DEC9;
+            font-family: 'BeanPole';
+            color: #E4DEC9;
+            font-size: 1.7vw;
+            position: relative;
+        }
+
+
+        .music_grid .item h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            margin-top: 2vw;
+            font-size: 7vw;
+        }
+
+        .music_grid .item span {
+            position: relative;
+            left: 0;
+            display: inline-block;
+        }
+
+        .music_grid .item:nth-child(2) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #E4DEC9;
+            color: #000;
+            font-size: 5vw;
+            padding: 1vw;
+            line-height: 1;
+        }
+
+        .music_grid .text {
+            padding: 2vw;
+        }
+
+        .item:nth-child(3) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-column-start: 3;
+            grid-column-end: 6;
+        }
+
+
+        .item:nth-child(7) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 2;
+            grid-row-end: 5;
+        }
+
+        .item:nth-child(8) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-column-start: 3;
+            grid-column-end: 6;
+            grid-row-start: 2;
+            grid-row-end: 5;
+
+        }
+
+        /*******************************/
+        .item .wrapper {
+            width: 300px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            padding: 1vw 2vw;
+            background: var(--white);
+            background: black;
+            border: 1px solid #ccc;
+        }
+
+        .item .wrapper i {
+            cursor: pointer;
+        }
+
+        .top_bar,
+        .progress-area .timer,
+        .controls,
+        .music-list .header,
+        .music-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top_bar i {
+            font-size: 30px;
+            color: var(--white);
+        }
+
+        .item .top_bar span {
+            font-family: 'Tinos', serif;
+            justify-content: center;
+            font-size: 18px !important;
+            color: var(--white);
+            position: absolute;
+            left: 35%;
+            top: 3.5%;
+        }
+
+        .img-area {
+            /* height: 205px; */
+            width: 100%;
+            margin-top: 15px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px var(--lightbshadow);
+        }
+
+        .img-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .song-deatils {
+            font-family: 'Tinos', serif;
+            text-align: center;
+            margin: 10px 0;
+            margin: 25px 0;
+            color: var(--lightblack);
+        }
+
+        .song-deatils .name {
+            color: var(--white);
+            font-size: 18px;
+        }
+
+        .song-deatils .artist {
+            margin-top: 3px;
+            color: var(--white);
+            opacity: 0.9;
+            font-size: 18px;
+        }
+
+        .progress-area {
+            height: 7px;
+            width: 100%;
+            border: 1px solid #ccc;
+            /* background: var(--white); */
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .progress-area .progress-bar {
+            /* height: inherit; */
+            height: 5px;
+            width: 0%;
+            position: relative;
+            border-radius: inherit;
+            background: var(--white);
+        }
+
+        .progress-bar::before {
+            content: "";
+            position: absolute;
+            height: 12px;
+            width: 12px;
+            background: #000;
+            border-radius: inherit;
+            top: 50%;
+            right: -5px;
+            transform: translateY(-50%);
+            background: inherit;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .progress-area:hover .progress-bar::before {
+            opacity: 1;
+        }
+
+        .progress-area .timer {
+            margin-top: 2px;
+
+        }
+
+        .timer span {
+            margin-top: 5px;
+            font-size: 13px !important;
+            color: var(--white);
+
+        }
+
+        .controls {
+            margin: 40px 0 5px 0;
+        }
+
+        .controls i {
+            font-size: 28px;
+            user-select: none;
+            background: #ccc;
+            /* background: linear-gradient(var(--pink) 0%, var(--violet)100%); */
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls i:nth-child(2),
+        .controls i:nth-child(4) {
+            font-size: 43px;
+        }
+
+        .controls #prev {
+            margin-right: -13px;
+        }
+
+        .controls #next {
+            margin-left: -13px;
+        }
+
+        .controls .play-pause {
+            height: 54px;
+            width: 54px;
+            background: #000;
+            box-shadow: 0px 0px 10px #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-pause::before {
+            content: "";
+            position: absolute;
+            height: 43px;
+            width: 43px;
+            border-radius: inherit;
+            background: var(--white);
+        }
+
+        .play-pause i {
+            color: #fff;
+            height: 43px;
+            width: 43px;
+            line-height: 43px;
+            text-align: center;
+            border-radius: inherit;
+            background-clip: text;
+            background: inherit;
+            position: relative;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .music-list {
+            /* color: red; */
+            position: absolute;
+            left: 0;
+            bottom: -55%;
+            opacity: 0;
+            pointer-events: none;
+            width: 100%;
+            padding: 15px 30px;
+            border-radius: 15px;
+            background: var(--white);
+            box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.14s ease-out;
+        }
+
+        /* we'll use this sow class in javascript */
+
+        .music-list.show {
+            height: 60%;
+            background: #fff;
+            bottom: 0;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .music-list .header .row {
+            display: flex;
+            align-items: center;
+            font-size: 19px;
+            color: var(--lightblack);
+        }
+
+        .header .row i {
+            cursor: default;
+        }
+
+        .header .row span {
+            margin-left: 5px;
+        }
+
+        .header #close {
+            font-size: 22px;
+            color: var(--lightblack);
+        }
+
+        .music-list ul {
+            color: #000;
+            margin: 10px 0;
+            max-height: 260px;
+            overflow-y: auto;
+        }
+
+        .music-list ul::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .music-list ul li {
+            cursor: pointer;
+            list-style: none;
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+            color: var(--lightblack);
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .music-list ul li:last-child {
+            border-bottom: 0px;
+        }
+
+        .music-list ul li .row span {
+            font-size: 17px !important;
+        }
+
+        ul li .row p {
+            font-size: 1.2vw;
+            opacity: 0.9;
+        }
+
+        ul li .audio-duration {
+            font-size: 16px;
+        }
+
+        ul li.playing {
+            color: var(--violet);
+            pointer-events: none;
+        }
+
+        @media (max-width: 800px) {
+            .music_grid .text {
+                font-size: 2.5vw;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="music">
+        <div class="music_grid">
+            <div class="item">
+                <a href="index.html">
+                    <h2>script</h2>
+                </a>
+
+            </div>
+            <div class="item">
+                <span>music<br>player</span>
+            </div>
+            <div class="item text">
+                <span>
+                    HTML CSS와 JavaScript만을 사용하여 MUSIC PLAYER를만들었습니다.
+                    이 프로젝트 [Music Player in JavaScript] 에는 노래를 재생/일시 중지하거나 다음 또는 이전, 반복/랜덤을 할 수 있는 것과 같은 여러 기능이 있습니다.
+                    노래 목록을 보고 현재 재생 중인 노래를 알 수 있으며 목록에서 재생할 노래를 선택할 수도 있습니다. music player의 코드 또한 확인 하실 수 있습니다.
+                    한번 노래 들으러 가볼까요~!?
+                </span>
+
+            </div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item text">
+                This project Music Player
+                in JavaScript has several
+                features like you can loop,
+                repeat or shuffle a song,
+                play/pause a song or play
+                the next or previous song.
+                You can view your songs
+                list and also know which
+                song is currently playing and
+                you can also select the song
+                from the list to play.
+                Let’s play a music~!?
+            </div>
+            <div class="item">
+                <div class="wrapper">
+                    <div class="top_bar">
+                        <i class="material-icons">expand_more</i>
+                        <span>Now Playing</span>
+                        <i class="material-icons">more_horiz</i>
+                    </div>
+                    <div class="img-area">
+                        <img src="" alt="">
+                    </div>
+                    <div class="song-deatils">
+                        <p class="name"></p>
+                        <p class="artist"></p>
+                    </div>
+                    <div class="progress-area">
+                        <div class="progress-bar"></div>
+                        <div class="timer">
+                            <span class="current">0:00</span>
+                            <span class="duration"></span>
+                        </div>
+                        <audio id="main-audio" src=""></audio>
+                    </div>
+                    <div class="controls">
+                        <i id="repeat-plist" class="material-icons" title="Playlist looped">repeat</i>
+                        <i id="prev" class="material-icons">skip_previous</i>
+                        <div class="play-pause">
+                            <i class="material-icons">play_arrow</i>
+                        </div>
+                        <i id="next" class="material-icons">skip_next</i>
+                        <i id="more-muscic" class="material-icons">queue_music</i>
+                    </div>
+                    <div class="music-list">
+                        <div class="header">
+                            <div class="row">
+                                <i class="material-icons">queue_music</i>
+                                <span>Music list</span>
+                            </div>
+                            <i id="close" class="material-icons">close</i>
+                        </div>
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="js/music-list.js"></script>
+    <script src="js/script.js"></script>
+
+
+    <script>
+        //music
+        // $(document).ready(function () {
+        //     $(".item:nth-child(3) span").ready(function () {
+        //         gsap.from(".item:nth-child(3) span ", {
+        //             rotation: 27,
+        //             x: 100,
+        //             duration: 1
+        //         });
+        //     })
+
+
+        //     gsap.from(".music_grid .item:nth-child(2)", {
+        //         x: '-100%'
+        //     })
+
+        //     gsap.from(".music_grid .item:nth-child(2) span", {
+        //         ease: Back.easeOut,
+        //         delay: .3,
+        //         x: '-100%'
+        //     })
+
+
+        //     gsap.from(".item .wrapper", {
+
+        //         y: '100%'
+        //     })
+
+        // });
+
+    </script>
+
+</body>
+
+</html>

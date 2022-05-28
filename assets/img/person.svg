@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 72.22"><defs>
+<style>
+.cls-1{
+    
+    fill: none;
+    stroke: #E4DEC9;
+    stroke-width: 1.2;
+    stroke-miterlimit:100;
+stroke-dasharray: 300;
+stroke-dashoffset: 0;
+animation: dash 4s linear infinite;
+}
+
+@keyframes dash{
+    0%{stroke-dashoffset:300;}
+    100%{stroke-dashoffset:0;}
+
+}</style>
+
+
+
+</defs><g id="레이어_2" data-name="레이어 2"><g id="레이어_1-2" data-name="레이어 1"><path id="사람" class="cls-1" d="M25.28,0H39.72V14.44H25.28ZM14.44,18.06H50.56v7.22H43.33V72.22H36.11V50.56H28.89V72.22H21.67V25.28H14.44ZM7.22,32.5h7.22V25.28H7.22Zm0,0v7.22H0V32.5Zm50.56,0H50.56V25.28h7.22Zm0,0H65v7.22H57.78Z"/></g></g></svg>

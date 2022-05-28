@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Game</title>
+
+    <link href="https://webfontworld.github.io/ssf/BeanPole.css" rel="stylesheet">
+
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .typing {
+        height: 100%;
+    }
+
+    .typing_grid {
+        display: grid;
+
+        grid: repeat(4, 25vh)/auto-flow 20vw;
+        background: #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .typing_grid .item {
+        justify-items: stretch;
+        border-right: 1px solid #E4DEC9;
+        border-bottom: 1px solid #E4DEC9;
+        font-family: 'BeanPole';
+        color: #E4DEC9;
+        font-size: 1.7vw;
+        position: relative;
+    }
+
+    .typing_grid .item h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        margin-top: 2vw;
+        font-size: 7vw;
+    }
+
+    .typing_grid .text {
+        padding: 2vw;
+        font-weight: lighter;
+        line-height: 150%;
+    }
+
+
+    .item:nth-child(2) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+
+    .item:nth-child(2) span {
+        display: inline-block;
+        /* margin-top: 3vw; */
+        margin: 2vw;
+    }
+
+    .item:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+
+    .item:nth-child(3) h3 {
+        padding: 4vw;
+        font-size: 5vw;
+    }
+
+
+
+    .item:nth-child(5) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 2;
+        grid-column-end: 6;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .item:nth-child(6) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-start: 3;
+        grid-column-end: 6;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+
+    .item:nth-child(6) .wrapper {
+        /* width: 60vw; */
+        margin: 3.5vw;
+    }
+
+    /***********************************************/
+
+    .wrapper {
+        width: 50vw;
+        padding: 3vw;
+        background: #000;
+        border: 1px solid #fff;
+        border-radius: 10px;
+    }
+
+
+    .wrapper .input_field {
+        z-index: -999;
+        opacity: 0;
+        position: absolute;
+    }
+
+    .wrapper .content_box {
+        background-color: #000;
+        padding: 2vw 1.5vw 0;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .content_box .typing_text {
+        max-height: 255px;
+        overflow-y: auto;
+    }
+
+    .typing_text ::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .typing_text p {
+        color: #fff;
+        /* font-size: 21px; */
+        font-size: 1.8vw;
+        text-align: justify;
+        letter-spacing: 1px;
+        word-break: break-all;
+    }
+
+    .typing_text p span {
+        position: relative;
+    }
+
+    .typing_text p span.correct {
+        color: #ffb5a7;
+    }
+
+    .typing_text p span.incorrect {
+        color: #9cafb7;
+        /* background: #f7dba7; */
+        /* outline: 1px solid #fff; */
+        border-radius: 4px;
+    }
+
+
+    .typing_text p span.active {
+        color: #f25c54;
+    }
+
+    .typing_text p span.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 100%;
+        opacity: 0;
+        background: #f25c54;
+        animation: blink 1s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+        50% {
+            opacity: 1;
+        }
+    }
+
+
+
+    .content_box .content {
+        display: flex;
+        /* margin-top: 17px; */
+        margin-top: 2VW;
+        padding: 12px 0;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        justify-content: space-between;
+    }
+
+    .content button {
+        border: none;
+        outline: none;
+        /* width: 105px; */
+        width: 6.5vw;
+        padding: 8px 0;
+        color: #fff;
+        cursor: pointer;
+        /* font-size: 16px; */
+        font-size: 1vw;
+        border-radius: 5px;
+        background: #f25c54;
+        transition: transform 0.3s ease;
+    }
+
+
+    .content button:hover {
+        box-shadow: 0 0 5px #f25c54,
+            0 0 25px #f25c54,
+            0 0 50px #f25c54,
+            0 0 200px #f25c54;
+    }
+
+
+    .content button:active {
+        transform: scale(0.97);
+    }
+
+    .content .result_details {
+        color: #fff;
+        display: flex;
+        width: calc(100% - 140px);
+        justify-content: space-between;
+    }
+
+    .result_details li {
+        height: 1.5vw;
+        display: flex;
+        list-style: none;
+        align-items: center;
+    }
+
+
+    .result_details li:not(:first-child) {
+        padding-left: 2vw;
+        border-left: .1vw solid #ccc;
+    }
+
+    .result_details li p {
+        font-size: 19px;
+        font-size: 1.3vw;
+    }
+
+    .result_details li span {
+        display: block;
+        font-size: 1.7vw;
+        margin-left: 10px;
+
+    }
+
+    .result_details li:not(:first-child) span {
+        font-weight: 500;
+    }
+
+    .result_details li b {
+        font-weight: 500;
+    }
+
+
+    @media (max-width: 800px) {
+        .typing_grid .text {
+            font-size: 2.5vw;
+        }
+
+        .wrapper {
+            padding: 2vw;
+        }
+    }
+
+</style>
+
+<body>
+    <div class="typing">
+        <div class="typing_grid">
+            <div class="item">
+                <h2>script</h2>
+            </div>
+            <div class="item text">
+                <span>I made a typing speed game using HTML CSS and
+                    JavaScript. Typing speed test is a game where you
+                    can check your typing speed like WPM (Word Per Minute),
+                    CPM (Character Per Minute), Accuracy, etc. In my
+                    Typing Speed Test Game, the max time for typing is
+                    60 seconds. Once you start typing, you’ll see your time,
+                    mistakes, WPM, and CPM at the bottom.
+                    Let's introduce myself and the game at the same time~!?</span>
+            </div>
+            <div class="item">
+                <h3>TYPING SPEED GAME</h3>
+            </div>
+            <div class="item"></div>
+            <div class="item text">
+                <span>
+                    HTML CSS 및 Vanilla JavaScript를 사용하여 타이핑 스피드 게임을 만들었습니다. 타자 속도 테스트는 WPM(Word Per Minute), CPM(Character Per Minute), 정확도 등
+                    자신의 타자 속도를 확인할 수 있는 게임입니다. 제 타자 속도 테스트 게임의 최대 타자 시간은 60초입니다. 입력을 시작하면 하단에 시간, 실수, WPM 및 CPM이 표시됩니다. 잘못된 문자를 지우거나 키보드의
+                    백스페이스 키를 눌러 뒤로 이동할 수도 있습니다. 모든 문자를 입력했거나 시간이 완료되면 다시 시도 버튼을 클릭하여 결과를 재설정하고 새 단락을 로드할 수 있습니다.
+                    저의 대한 소개와 게임을동시에 하러 가볼까요~!?
+                </span>
+            </div>
+            <div class="item">
+                <div class="wrapper">
+                    <input type="text" class="input_field">
+                    <div class="content_box">
+                        <div class="typing_text">
+                            <p></p>
+                        </div>
+                        <div class="content">
+                            <ul class="result_details">
+                                <li class="time">
+                                    <p>Time Left:</p>
+                                    <span><b>60</b>s</span>
+                                </li>
+                                <li class="mistake">
+                                    <p>Mistakes:</p>
+                                    <span>0</span>
+                                </li>
+                                <li class="wpm">
+                                    <p>WPM:</p>
+                                    <span>0</span>
+                                </li>
+                                <li class="cpm">
+                                    <p>CPM:</p>
+                                    <span>0</span>
+                                </li>
+                            </ul>
+                            <button>Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+
+
+    <script src="js/paragraphs.js"></script>
+    <script src="js/typingscript.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src=“https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"> </script> <script>
+        // gsap.from(".item:nth-child(3) h3 ", {
+        //     rotationY: 180,
+        //     duration: 2
+        // });
+
+        // gsap.from(".item:nth-child(6) .wrapper", {
+        //     ease: Back.easeOut,
+        //     duration: 1,
+        //     delay: .2,
+        //     x: '100%'
+        // })
+
+    </script>
+</body>
+
+</html>
